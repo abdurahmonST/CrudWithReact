@@ -8,7 +8,7 @@ const ProductsPage = React.lazy(() => import('./pages/ProductsPage'))
 const App = () => {
   return (
     <Routes>
-      <Route path="/dashboard" element={<Main/>}>
+      <Route path="/" element={<Main/>}>
         <Route path="products" element={<ProductsPage />} />
         <Route path="posts" element={<PostsPage />} />
       </Route>
