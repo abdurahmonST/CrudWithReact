@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const TasksList = ({ tasks = [], setSelectedTask, deleteTask }) => {
+  const [searchTerm, setSearchTerm] = useState('');
+
   const handleEdit = (task) => {
     setSelectedTask(task);
   };
@@ -9,9 +11,23 @@ const TasksList = ({ tasks = [], setSelectedTask, deleteTask }) => {
     deleteTask(taskId);
   };
 
+  const filteredTasks = tasks.filter((task) =>
+    task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    task.description.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="bg-stone-900 max-w-4xl m-auto p-6 mt-6 mb-6 rounded shadow-xl/40">
       <h1 className="flex justify-center items-center text-3xl m-8 text-white">Tasks List</h1>
+      <div className="flex justify-center mb-4">
+        <input
+          type="text"
+          placeholder="Search by title or description..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="bg-stone-300 outline-0 text-stone-700 p-2 rounded w-full max-w-md"
+        />
+      </div>
       <div className="overflow-x-auto">
         <table className="w-full text-left text-stone-200">
           <thead className="bg-stone-800">
@@ -25,7 +41,7 @@ const TasksList = ({ tasks = [], setSelectedTask, deleteTask }) => {
             </tr>
           </thead>
           <tbody>
-            {tasks?.map((task) => (
+            {filteredTasks.map((task) => (
               <tr
                 key={task.id}
                 className="border-b border-stone-700 hover:bg-stone-800 transition-all duration-300 ease-in-out"

@@ -4,21 +4,21 @@ const UsersForm = ({ setUsers, selectedUser }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const [role, setRole] = useState('');
+  const [age, setAge] = useState('');
 
   useEffect(() => {
     if (selectedUser) {
       setName(selectedUser.name || '');
       setEmail(selectedUser.email || '');
       setPhone(selectedUser.phone || '');
-      setRole(selectedUser.role || '');
+      setAge(selectedUser.age || '');
     }
   }, [selectedUser]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const { name, email, phone, role } = e.target;
+    const { name, email, phone, age } = e.target;
 
     setUsers((prev) => [
       ...prev,
@@ -27,14 +27,14 @@ const UsersForm = ({ setUsers, selectedUser }) => {
         name: name.value,
         email: email.value,
         phone: phone.value,
-        role: role.value,
+        age: age.value,
       },
     ]);
 
     setName('');
     setEmail('');
     setPhone('');
-    setRole('');
+    setAge('');
   };
 
   return (
@@ -92,20 +92,18 @@ const UsersForm = ({ setUsers, selectedUser }) => {
       </div>
 
       <div className="flex flex-col justify-center items-left">
-        <label htmlFor="role" className="text-xl pl-2 text-white">
-          Role
+        <label htmlFor="age" className="text-xl pl-2 text-white">
+          Age
         </label>
-        <select
-          name="role"
-          onChange={(e) => setRole(e.target.value)}
-          value={role}
+        <input
           className="bg-stone-300 outline-0 text-stone-700 p-2 m-2 rounded"
-        >
-          <option value="">Select Role</option>
-          <option value="admin">Admin</option>
-          <option value="user">User</option>
-          <option value="guest">Guest</option>
-        </select>
+          onInput={(e) => setAge(e.target.value)}
+          value={age}
+          id="age"
+          type="number"
+          name="age"
+          placeholder="Enter age..."
+        />
       </div>
 
       <div className="flex flex-col justify-center items-left">
